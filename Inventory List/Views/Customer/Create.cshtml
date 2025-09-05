@@ -1,0 +1,90 @@
+﻿@model Inventory_List.Models.Customer
+
+@{
+    ViewData["Title"] = "Add Customer";
+}
+
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">
+        <i class="fas fa-users text-primary"></i> Add Customer
+    </h1>
+    <a asp-action="Index" class="btn btn-secondary btn-sm shadow-sm">
+        <i class="fas fa-arrow-left fa-sm text-white-50"></i> Back to List
+    </a>
+</div>
+
+<!-- Card Form -->
+<div class="card shadow-lg border-0">
+    <div class="card-header bg-gradient-primary text-white py-3">
+        <h6 class="m-0 font-weight-bold"><i class="fas fa-user-plus"></i> Customer Information</h6>
+    </div>
+    <div class="card-body">
+        <form asp-action="Create" method="post" class="needs-validation" novalidate>
+            <div class="row g-3">
+                <!-- Customer Name -->
+                <div class="col-md-6">
+                    <label asp-for="Name" class="form-label fw-bold mt-3"></label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-light"><i class="fas fa-user"></i></span>
+                        <input asp-for="Name" class="form-control" placeholder="e.g. Stark Industries" />
+                    </div>
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+                <!-- Contact Info -->
+                <div class="col-md-6">
+                    <label asp-for="ContactInfo" class="form-label fw-bold mt-3"></label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-light"><i class="fas fa-envelope"></i></span>
+                        <input asp-for="ContactInfo" class="form-control" placeholder="e.g. +233 24 123 4567 or customer@email.com" />
+                    </div>
+                    <span asp-validation-for="ContactInfo" class="text-danger"></span>
+                </div>
+
+                <!-- Home Address -->
+                <div class="col-md-6">
+                    <label asp-for="Address" class="form-label fw-bold mt-3"></label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-light"><i class="fas fa-map-marker-alt"></i></span>
+                        <input asp-for="Address" class="form-control" placeholder="123 Avengers Tower" />
+                    </div>
+                    <span asp-validation-for="Address" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!-- Buttons -->
+            <div class="d-flex justify-content-end mt-4">
+                <button type="submit" class="btn btn-primary me-2 shadow-sm">
+                    <i class="fas fa-save"></i> Add Customer
+                </button>
+                <a asp-action="Index" class="btn btn-outline-secondary shadow-sm ml-3">
+                    <i class="fas fa-times"></i> Cancel
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        // Optional: Bootstrap validation styling
+        (function () {
+            'use strict';
+            var forms = document.querySelectorAll('.needs-validation');
+            Array.prototype.slice.call(forms)
+                .forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+        })();
+    </script>
+}

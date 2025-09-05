@@ -1,0 +1,98 @@
+﻿@model IEnumerable<Inventory_List.Models.Supplier>
+
+@{
+    ViewData["Title"] = "Suppliers";
+}
+
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">
+        <i class="fas fa-truck-loading text-primary me-2"></i> Suppliers
+    </h1>
+    <a asp-action="Create" class="btn btn-primary btn-sm shadow-sm">
+        <i class="fas fa-plus fa-sm text-white-50"></i> Add New Supplier
+    </a>
+</div>
+
+<!-- Supplier Table -->
+<div class="card shadow-lg border-0 mb-4">
+    <div class="card-header bg-gradient-primary text-white d-flex justify-content-between align-items-center">
+        <h6 class="m-0 fw-bold"><i class="fas fa-list me-2"></i> Supplier List</h6>
+        <small class="text-light">Manage all registered suppliers</small>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table id="datatable" class="table table-hover table-striped align-middle">
+                <thead class="bg-primary text-white">
+                    <tr>
+                        <th><i class="fas fa-industry me-1"></i> Name</th>
+                        <th> Contact</th>
+                        <th><i class="fas fa-envelope me-1"></i> Email</th>
+                        <th>Phone</th>
+                        <th>Address</th>
+                        <th> City</th>
+                        <th>Region</th>
+                        <th> Postal</th>
+                        <th>Country</th>
+                        <th class="text-center"><i class="fas fa-cogs"></i></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var supplier in Model)
+                    {
+                        <tr>
+                            <!-- Supplier Name -->
+                            <td class="fw-semibold">@supplier.Name</td>
+
+                            <td>
+                                <span class="badge bg-info text-dark">
+                                    @supplier.ContactPerson
+                                </span>
+                            </td>
+                            <td>
+                                <a href="mailto:@supplier.Email" class="text-decoration-none">
+                                    <i class="fas fa-envelope text-danger"></i>
+                                    @supplier.Email
+                                </a>
+                            </td>
+                            <td>
+                                <i class="text-success me-1"></i>
+                                @supplier.PhoneNumber
+                            </td>
+                            <td>@supplier.HomeAddress</td>
+                            <td>@supplier.City</td>
+                            <td>@supplier.Region</td>
+                            <td>@supplier.PostalCode</td>
+                            <td>
+                                <span class="badge bg-info">@supplier.Country</span>
+                            </td>
+
+                            <!-- Actions -->
+                            <td class="text-center">
+                                <div class="btn-group" role="group">
+                                    <a asp-action="Edit" asp-route-id="@supplier.Id"
+                                       class="btn btn-sm btn-outline-warning" title="Edit">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+
+                                    <form asp-action="Delete" asp-route-id="@supplier.Id" method="post" class="d-inline">
+                                        <button type="submit"
+                                                class="btn btn-sm btn-outline-danger ml-3"
+                                                onclick="return confirm('Are you sure you want to delete @supplier.Name?');"
+                                                title="Delete">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/datatables.js"></script>
+}

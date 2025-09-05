@@ -1,0 +1,141 @@
+﻿@model Inventory_List.Models.Supplier
+
+@{
+    ViewData["Title"] = "Edit Supplier";
+}
+
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">
+        <i class="fas fa-industry text-primary me-2"></i> Edit Supplier
+    </h1>
+    <a asp-action="Index" class="btn btn-secondary btn-sm shadow-sm">
+        <i class="fas fa-arrow-left fa-sm text-white-50"></i> Back to List
+    </a>
+</div>
+
+<!-- Edit Supplier Form Card -->
+<div class="card shadow-lg border-0 rounded-3">
+    <div class="card-header bg-gradient-primary text-white py-3">
+        <h6 class="m-0 fw-bold"><i class="fas fa-edit me-2"></i> Update Supplier Information</h6>
+    </div>
+    <div class="card-body p-4">
+        <form asp-action="Edit" method="post" class="needs-validation" novalidate>
+            <input type="hidden" asp-for="Id" />
+
+            <div class="row g-4">
+                <!-- Supplier Name -->
+                <div class="col-md-6">
+                    <label asp-for="Name" class="form-label fw-bold"></label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-light"><i class="fas fa-building"></i></span>
+                        <input asp-for="Name" class="form-control" placeholder="e.g. Stark Industries" />
+                    </div>
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+                <!-- Supplier Email -->
+                <div class="col-md-6">
+                    <label asp-for="Email" class="form-label fw-bold"></label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-light"><i class="fas fa-envelope"></i></span>
+                        <input asp-for="Email" class="form-control" placeholder="e.g. stark@industries.com" />
+                    </div>
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!-- Contact Info -->
+            <hr class="my-4" />
+            <h6 class="text-primary fw-bold mb-3"><i class="fas fa-address-book me-2"></i> Contact Details</h6>
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <label asp-for="ContactPerson" class="form-label fw-bold"></label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-light"><i class="fas fa-user-tie"></i></span>
+                        <input asp-for="ContactPerson" class="form-control" placeholder="e.g. Pepper Potts" />
+                    </div>
+                    <span asp-validation-for="ContactPerson" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-6">
+                    <label asp-for="PhoneNumber" class="form-label fw-bold"></label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-light"><i class="fas fa-phone-alt"></i></span>
+                        <input asp-for="PhoneNumber" class="form-control" placeholder="+233 123 456 789" />
+                    </div>
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!-- Address Info -->
+            <hr class="my-4" />
+            <h6 class="text-primary fw-bold mb-3"><i class="fas fa-map-marked-alt me-2"></i> Address Information</h6>
+            <div class="row g-4">
+                <div class="col-md-12">
+                    <label asp-for="HomeAddress" class="form-label fw-bold"></label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-light"><i class="fas fa-map-marker-alt"></i></span>
+                        <input asp-for="HomeAddress" class="form-control" placeholder="123 Avengers Tower" />
+                    </div>
+                    <span asp-validation-for="HomeAddress" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-4">
+                    <label asp-for="City" class="form-label fw-bold"></label>
+                    <input asp-for="City" class="form-control" placeholder="Accra" />
+                    <span asp-validation-for="City" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-4">
+                    <label asp-for="Region" class="form-label fw-bold"></label>
+                    <input asp-for="Region" class="form-control" placeholder="Greater Accra" />
+                    <span asp-validation-for="Region" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-4">
+                    <label asp-for="PostalCode" class="form-label fw-bold"></label>
+                    <input asp-for="PostalCode" class="form-control" placeholder="00233" />
+                    <span asp-validation-for="PostalCode" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-6">
+                    <label asp-for="Country" class="form-label fw-bold"></label>
+                    <input asp-for="Country" class="form-control" placeholder="Ghana" />
+                    <span asp-validation-for="Country" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!-- Buttons -->
+            <div class="d-flex justify-content-end mt-5">
+                <button type="submit" class="btn btn-success me-2 shadow-sm">
+                    <i class="fas fa-save me-1"></i> Update Supplier
+                </button>
+                <a asp-action="Index" class="btn btn-outline-secondary shadow-sm ml-3">
+                    <i class="fas fa-times me-1"></i> Cancel
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+    <script>
+        // Bootstrap validation
+        (function () {
+            'use strict';
+            var forms = document.querySelectorAll('.needs-validation');
+            Array.prototype.slice.call(forms)
+                .forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+        })();
+    </script>
+}

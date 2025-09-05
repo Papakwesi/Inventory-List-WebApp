@@ -29,3 +29,28 @@ body {
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
   text-align: start;
 }
+
+.brand-text {
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #ffffff;
+    text-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+/* Brand Icon */
+.brand-icon {
+    font-size: 1.5rem;
+    color: #ffffff;
+    text-shadow: 0 0 8px rgba(21, 140, 186, 0.7);
+}
+
+.navbar-brand:hover .brand-icon {
+    transform: rotate(10deg) scale(1.1);
+    text-shadow: 0 0 12px rgba(21, 140, 186, 0.9);
+}
+
+/* Keep navbar in SB Admin 2 vibe */
+.topbar {
+    border-bottom: 1px solid rgba(21, 140, 186, 0.2);
+}

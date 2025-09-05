@@ -1,0 +1,77 @@
+﻿@model IEnumerable<Inventory_List.Models.Customer>
+
+@{
+    ViewData["Title"] = "Customers";
+}
+
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">
+        <i class="fas fa-users text-primary me-2"></i> Customers
+    </h1>
+    <a asp-action="Create" class="btn btn-primary btn-sm shadow-sm">
+        <i class="fas fa-plus fa-sm text-white-50"></i> Add New Customers
+    </a>
+</div>
+
+<!-- Supplier Table -->
+<div class="card shadow-lg border-0 mb-4">
+    <div class="card-header bg-gradient-primary text-white d-flex justify-content-between align-items-center">
+        <h6 class="m-0 fw-bold"><i class="fas fa-list me-2"></i> Supplier List</h6>
+        <small class="text-light">Manage all registered customers</small>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table id="datatable" class="table table-hover table-striped align-middle">
+                <thead class="bg-primary text-white">
+                    <tr>
+                        <th><i class="fas fa-industry me-1"></i> Name</th>
+                        <th> ContactInfo</th>
+                        <th><i class="fas fa-envelope me-1"></i> Email</th>
+                        <th class="text-center"><i class="fas fa-cogs"></i></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var customer in Model)
+                    {
+                        <tr>
+                            <!-- Supplier Name -->
+                            <td class="fw-semibold">@customer.Name</td>
+
+                            <td>
+                                <span class="badge bg-info text-dark">
+                                    @customer.ContactInfo
+                                </span>
+                            </td>
+
+                            <td>@customer.Address</td>
+
+                            <!-- Actions -->
+                            <td class="text-center">
+                                <div class="btn-group" role="group">
+                                    <a asp-action="Edit" asp-route-id="@customer.Id"
+                                       class="btn btn-sm btn-outline-warning" title="Edit">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+
+                                    <form asp-action="Delete" asp-route-id="@customer.Id" method="post" class="d-inline">
+                                        <button type="submit"
+                                                class="btn btn-sm btn-outline-danger ml-3"
+                                                onclick="return confirm('Are you sure you want to delete @customer.Name?');"
+                                                title="Delete">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/datatables.js"></script>
+}

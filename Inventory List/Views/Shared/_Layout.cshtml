@@ -11,15 +11,39 @@
 
     <!-- DataTables CSS -->
     <link href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css" rel="stylesheet" />
 
     <!-- Toastr CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
+
+    <style>
+        .brand-text {
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: #ffffff;
+            text-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .brand-icon {
+            font-size: 1.5rem;
+            color: #ffffff;
+            text-shadow: 0 0 8px rgba(21, 140, 186, 0.7);
+        }
+
+        .navbar-brand:hover .brand-icon {
+            transform: rotate(10deg) scale(1.1);
+            text-shadow: 0 0 12px rgba(21, 140, 186, 0.9);
+        }
+
+        .topbar {
+            border-bottom: 1px solid rgba(21, 140, 186, 0.2);
+        }
+    </style>
 </head>
 <body id="page-top">
 
-    <!-- Page Wrapper -->
     <div id="wrapper">
-
         <!-- Sidebar -->
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
             <a class="sidebar-brand d-flex align-items-center justify-content-center" asp-area="" asp-controller="Home" asp-action="Index">
@@ -31,39 +55,46 @@
 
             <hr class="sidebar-divider" />
 
-            <!-- Nav Items -->
             <li class="nav-item">
                 <a class="nav-link" asp-controller="Category" asp-action="Index">
-                    <i class="fas fa-tags"></i>
-                    <span>Categories</span>
+                    <i class="fas fa-tags"></i> <span>Categories</span>
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" asp-controller="Product" asp-action="Index">
-                    <i class="fas fa-cube"></i>
-                    <span>Products</span>
+                    <i class="fas fa-cube"></i> <span>Products</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-controller="Supplier" asp-action="Index">
+                    <i class="fas fa-truck-loading"></i> <span>Suppliers</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-controller="Customer" asp-action="Index">
+                    <i class="fas fa-users"></i> <span>Customers</span>
                 </a>
             </li>
         </ul>
         <!-- End Sidebar -->
 
-        <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
             <div id="content">
-
-                <!-- Topbar -->
-                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-                    <span class="navbar-brand">Inventory Management</span>
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 shadow-sm px-3">
+                    <a class="navbar-brand fw-bold d-flex align-items-center" href="/">
+                        <i class="fas fa-cubes me-2 text-primary brand-icon"></i>
+                        <span class="brand-text">
+                            <span class="text-dark">Inventory</span>
+                            <span class="text-primary">Management</span>
+                        </span>
+                    </a>
                 </nav>
-                <!-- End of Topbar -->
 
-                <!-- Main Content -->
                 <div class="container-fluid">
                     @RenderBody()
                 </div>
             </div>
 
-            <!-- Footer -->
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="text-center my-auto">
@@ -74,7 +105,6 @@
         </div>
     </div>
 
-    <!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
@@ -87,17 +117,43 @@
 
     <!-- DataTables JS -->
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.colVis.min.js"></script>
+
+    <!-- Export dependencies -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
 
     <!-- Toastr -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
     <script>
+        // Toastr Alerts
         var toastrMessages = {
             success: '@TempData["success"]',
             error: '@TempData["error"]'
         };
         if (toastrMessages.success) toastr.success(toastrMessages.success);
         if (toastrMessages.error) toastr.error(toastrMessages.error);
+
+        // Global DataTable setup for all .datatable tables
+        $(document).ready(function () {
+            $('.datatable').DataTable({
+                responsive: true,
+                dom: '<"d-flex justify-content-between align-items-center mb-3"Bf>rtip',
+                buttons: [
+                    { extend: 'copyHtml5', text: '<i class="fas fa-copy"></i> Copy', className: 'btn btn-sm btn-secondary' },
+                    { extend: 'excelHtml5', text: '<i class="fas fa-file-excel"></i> Excel', className: 'btn btn-sm btn-success' },
+                    { extend: 'csvHtml5', text: '<i class="fas fa-file-csv"></i> CSV', className: 'btn btn-sm btn-info' },
+                    { extend: 'pdfHtml5', text: '<i class="fas fa-file-pdf"></i> PDF', className: 'btn btn-sm btn-danger', orientation: 'landscape', pageSize: 'A4' },
+                    { extend: 'print', text: '<i class="fas fa-print"></i> Print', className: 'btn btn-sm btn-dark' },
+                    { extend: 'colvis', text: '<i class="fas fa-columns"></i> Columns', className: 'btn btn-sm btn-warning' }
+                ]
+            });
+        });
     </script>
 
     @await RenderSectionAsync("Scripts", required: false)
