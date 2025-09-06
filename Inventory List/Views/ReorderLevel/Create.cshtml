@@ -1,0 +1,17 @@
+﻿@model Inventory_List.Models.ReorderLevel
+
+<h2>Add Reorder Level</h2>
+
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <label>Product</label>
+        <select asp-for="ProductId" class="form-control" asp-items="@(new SelectList(ViewBag.Products, "Id", "Name"))"></select>
+    </div>
+    <div class="form-group">
+        <label asp-for="Level"></label>
+        <input asp-for="Level" class="form-control" />
+        <span asp-validation-for="Level" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-success">Save</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>

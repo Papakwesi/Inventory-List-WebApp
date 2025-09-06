@@ -14,6 +14,8 @@ namespace Inventory_List.Data
         public DbSet<Transaction> Transactions { get; set; }
         public DbSet<TransactionDetail> TransactionDetails { get; set; }
         public DbSet<Customer> Customers { get; set; }
+        public DbSet<ReorderLevel> ReorderLevels { get; set; }
+
 
     }
 
