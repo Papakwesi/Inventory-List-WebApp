@@ -1,79 +1,185 @@
-﻿@model Inventory_List.Models.DashboardViewModel
+﻿@model Inventory_List.ViewModels.DashboardViewModel
 @{
     ViewData["Title"] = "Dashboard";
 }
 
 <div class="container-fluid">
-    <!-- Page Heading -->
-    <h1 class="h3 mb-4 text-gray-800">
-        <i class="fas fa-tachometer-alt text-primary"></i> Dashboard
+    <h1 class="h3 mb-4 fw-bold text-primary">
+        <i class="fas fa-tachometer-alt me-2"></i> Dashboard
     </h1>
 
     <!-- Stat Cards -->
     <div class="row">
         <div class="col-md-3 mb-4">
-            <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card shadow-sm border-0 rounded-lg h-100 stat-card">
                 <div class="card-body d-flex justify-content-between align-items-center">
                     <div>
-                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Categories</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.TotalCategories</div>
+                        <div class="text-muted text-uppercase small">Categories</div>
+                        <div class="h4 fw-bold">@Model.TotalCategories</div>
                     </div>
-                    <i class="fas fa-tags fa-2x text-gray-300"></i>
+                    <div class="icon-circle bg-primary text-white">
+                        <i class="fas fa-tags"></i>
+                    </div>
                 </div>
             </div>
         </div>
 
         <div class="col-md-3 mb-4">
-            <div class="card border-left-success shadow h-100 py-2">
+            <div class="card shadow-sm border-0 rounded-lg h-100 stat-card">
                 <div class="card-body d-flex justify-content-between align-items-center">
                     <div>
-                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Products</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.TotalProducts</div>
+                        <div class="text-muted text-uppercase small">Products</div>
+                        <div class="h4 fw-bold">@Model.TotalProducts</div>
                     </div>
-                    <i class="fas fa-cube fa-2x text-gray-300"></i>
+                    <div class="icon-circle bg-success text-white">
+                        <i class="fas fa-cube"></i>
+                    </div>
                 </div>
             </div>
         </div>
 
         <div class="col-md-3 mb-4">
-            <div class="card border-left-info shadow h-100 py-2">
+            <div class="card shadow-sm border-0 rounded-lg h-100 stat-card">
                 <div class="card-body d-flex justify-content-between align-items-center">
                     <div>
-                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Suppliers</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.TotalSuppliers</div>
+                        <div class="text-muted text-uppercase small">Suppliers</div>
+                        <div class="h4 fw-bold">@Model.TotalSuppliers</div>
                     </div>
-                    <i class="fas fa-truck-loading fa-2x text-gray-300"></i>
+                    <div class="icon-circle bg-info text-white">
+                        <i class="fas fa-truck"></i>
+                    </div>
                 </div>
             </div>
         </div>
 
         <div class="col-md-3 mb-4">
-            <div class="card border-left-warning shadow h-100 py-2">
+            <div class="card shadow-sm border-0 rounded-lg h-100 stat-card">
                 <div class="card-body d-flex justify-content-between align-items-center">
                     <div>
-                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Customers</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.TotalCustomers</div>
+                        <div class="text-muted text-uppercase small">Customers</div>
+                        <div class="h4 fw-bold">@Model.TotalCustomers</div>
                     </div>
-                    <i class="fas fa-users fa-2x text-gray-300"></i>
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-danger shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
-                                Reorder Alerts
-                            </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">@ViewBag.ReorderCount</div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-bell fa-2x text-danger"></i>
-                        </div>
+                    <div class="icon-circle bg-warning text-white">
+                        <i class="fas fa-users"></i>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Reorder Alerts -->
+    <div class="row">
+        <div class="col-md-3 mb-4">
+            <div class="card shadow-sm border-0 rounded-lg h-100 bg-light-danger">
+                <a asp-controller="ReorderLevel" asp-action="Index" class="text-decoration-none text-dark">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        <div>
+                            <div class="text-uppercase small fw-bold text-danger">Reorder Alerts</div>
+                            <div class="h4 fw-bold">@Model.ReorderCount</div>
+                        </div>
+                        <div class="icon-circle bg-danger text-white">
+                            <i class="fas fa-bell"></i>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="row mt-3">
+        <div class="col-md-12">
+            <div class="card shadow-sm border-0 rounded-lg">
+                <div class="card-header bg-light fw-bold">
+                    <i class="fas fa-link me-2"></i> Quick Actions
+                </div>
+                <div class="card-body">
+                    <a asp-controller="Product" asp-action="Create" class="btn btn-primary btn-sm me-2">
+                        <i class="fas fa-plus"></i> Add Product
+                    </a>
+                    <a asp-controller="Customer" asp-action="Index" class="btn btn-info btn-sm me-2">
+                        <i class="fas fa-users"></i> View Customers
+                    </a>
+                    <a asp-controller="Supplier" asp-action="Index" class="btn btn-success btn-sm me-2">
+                        <i class="fas fa-truck"></i> View Suppliers
+                    </a>
+                    <a asp-controller="Category" asp-action="Index" class="btn btn-warning btn-sm">
+                        <i class="fas fa-tags"></i> Manage Categories
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Low Stock Products -->
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <div class="card shadow-sm border-0 rounded-lg">
+                <div class="card-header bg-danger text-white fw-bold">
+                    <i class="fas fa-bell me-2"></i> Products Below Reorder Level
+                </div>
+                <div class="card-body p-0">
+                    <table class="table table-hover mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Product</th>
+                                <th>Stock</th>
+                                <th>Reorder Level</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.LowStockProducts != null && Model.LowStockProducts.Any())
+                            {
+                                foreach (var item in Model.LowStockProducts.Take(5))
+                                {
+                                    <tr>
+                                        <td>@item.Name</td>
+                                        <td><span class="badge bg-info text-dark">@item.Quantity</span></td>
+                                        <td><span class="badge bg-danger">@item.ReorderLevel</span></td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="3" class="text-center text-muted py-3">
+                                        <i class="fas fa-check-circle text-success"></i> All products are above reorder levels 🎉
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    @if (Model.LowStockProducts != null && Model.LowStockProducts.Count() > 5)
+                    {
+                        <div class="text-center py-2">
+                            <a href="@Url.Action("ReorderLevels", "Product")" class="btn btn-outline-danger btn-sm">
+                                View All <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+<style>
+    .icon-circle {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 18px;
+    }
+
+    .bg-light-danger {
+        background: #ffe6e6;
+    }
+
+    .stat-card:hover {
+        transform: translateY(-4px);
+        transition: all 0.2s ease-in-out;
+    }
+</style>

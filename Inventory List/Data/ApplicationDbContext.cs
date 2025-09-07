@@ -1,4 +1,5 @@
 ﻿using Inventory_List.Models;
+using Inventory_List.ViewModels;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 

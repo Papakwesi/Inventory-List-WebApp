@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Inventory_List.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace Inventory_List.Models
 {

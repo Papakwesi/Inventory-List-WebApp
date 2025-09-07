@@ -1,6 +1,8 @@
 ﻿using Inventory_List.Data;
 using Inventory_List.Models;
+using Inventory_List.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
@@ -25,63 +27,115 @@ namespace Inventory_List.Controllers
 
         public IActionResult Create()
         {
-            ViewBag.Products = _db.Products.ToList();
-            return View();
+            var vm = new ReorderLevelViewModel
+            {
+                Products = _db.Products.Select(p => new SelectListItem
+                {
+                    Value = p.Id.ToString(),
+                    Text = p.Name
+                }).ToList()
+            };
+
+            return View(vm);
         }
 
         [HttpPost]
-        public IActionResult Create(ReorderLevel reorderLevel)
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(ReorderLevelViewModel vm)
         {
             if (ModelState.IsValid)
             {
+                var reorderLevel = new ReorderLevel
+                {
+                    ProductId = vm.ProductId,
+                    Level = vm.Level
+                };
+
                 _db.ReorderLevels.Add(reorderLevel);
                 _db.SaveChanges();
-                TempData["success"] = "Reorder level added successfully!";
+                TempData["success"] = "Reorder level created successfully!";
                 return RedirectToAction(nameof(Index));
             }
-            ViewBag.Products = _db.Products.ToList();
-            return View(reorderLevel);
-        }
 
+            // Repopulate dropdown if validation fails
+            vm.Products = _db.Products.Select(p => new SelectListItem
+            {
+                Value = p.Id.ToString(),
+                Text = p.Name
+            }).ToList();
+
+            return View(vm);
+        }
         public IActionResult Edit(int id)
         {
-            var reorder = _db.ReorderLevels.Find(id);
-            if (reorder == null) return NotFound();
+            var reorderLevel = _db.ReorderLevels.Find(id);
+            if (reorderLevel == null)
+            {
+                return NotFound();
+            }
 
-            ViewBag.Products = _db.Products.ToList();
-            return View(reorder);
+            var vm = new ReorderLevelViewModel
+            {
+                Id = reorderLevel.Id,
+                ProductId = reorderLevel.ProductId,
+                Level = reorderLevel.Level,
+                Products = _db.Products.Select(p => new SelectListItem
+                {
+                    Value = p.Id.ToString(),
+                    Text = p.Name
+                }).ToList()
+            };
+
+            return View(vm);
         }
 
         [HttpPost]
-        public IActionResult Edit(ReorderLevel reorderLevel)
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(ReorderLevelViewModel vm)
         {
             if (ModelState.IsValid)
             {
+                var reorderLevel = _db.ReorderLevels.Find(vm.Id);
+                if (reorderLevel == null)
+                {
+                    return NotFound();
+                }
+
+                reorderLevel.ProductId = vm.ProductId;
+                reorderLevel.Level = vm.Level;
+
                 _db.ReorderLevels.Update(reorderLevel);
                 _db.SaveChanges();
+
                 TempData["success"] = "Reorder level updated successfully!";
                 return RedirectToAction(nameof(Index));
             }
-            ViewBag.Products = _db.Products.ToList();
-            return View(reorderLevel);
+
+            // Repopulate dropdown if validation fails
+            vm.Products = _db.Products.Select(p => new SelectListItem
+            {
+                Value = p.Id.ToString(),
+                Text = p.Name
+            }).ToList();
+
+            return View(vm);
         }
 
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Delete(int id)
         {
-            var reorder = _db.ReorderLevels.Include(r => r.Product).FirstOrDefault(r => r.Id == id);
-            if (reorder == null) return NotFound();
-            return View(reorder);
-        }
+            var recordLevel = _db.ReorderLevels.Find(id);
+            if (recordLevel == null)
+            {
+                TempData["error"] = "Record level not found!";
+                return RedirectToAction(nameof(Index));
+            }
 
-        [HttpPost, ActionName("Delete")]
-        public IActionResult DeleteConfirmed(int id)
-        {
-            var reorder = _db.ReorderLevels.Find(id);
-            if (reorder == null) return NotFound();
-
-            _db.ReorderLevels.Remove(reorder);
+            _db.ReorderLevels.Remove(recordLevel);
             _db.SaveChanges();
-            TempData["success"] = "Reorder level deleted successfully!";
+            TempData["success"] = "Product deleted successfully!";
             return RedirectToAction(nameof(Index));
         }
     }

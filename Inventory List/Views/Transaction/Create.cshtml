@@ -1,0 +1,44 @@
+﻿@model Inventory_List.ViewModels.TransactionViewModel
+
+@{
+    ViewData["Title"] = "Record Transaction";
+}
+
+<h2 class="fw-bold mb-3">Record Transaction</h2>
+
+<form asp-action="Create" method="post" class="shadow-sm p-4 bg-light rounded">
+    <div class="form-group mb-3">
+        <label asp-for="ProductId" class="form-label fw-semibold"></label>
+        <select asp-for="ProductId" asp-items="Model.Products" class="form-control">
+            <option value="">-- Select Product --</option>
+        </select>
+        <span asp-validation-for="ProductId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="Type" class="form-label fw-semibold"></label>
+        <select asp-for="Type" asp-items="Model.Types" class="form-control">
+            <option value="">-- Select Transaction Type --</option>
+        </select>
+        <span asp-validation-for="Type" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="Quantity" class="form-label fw-semibold"></label>
+        <input asp-for="Quantity" class="form-control" />
+        <span asp-validation-for="Quantity" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-success">
+        <i class="fas fa-save"></i> Save
+    </button>
+    <a asp-action="Index" class="btn btn-secondary ms-2">
+        <i class="fas fa-arrow-left"></i> Back
+    </a>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

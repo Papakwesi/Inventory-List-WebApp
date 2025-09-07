@@ -1,4 +1,6 @@
-﻿namespace Inventory_List.Models
+﻿using Inventory_List.Models;
+
+namespace Inventory_List.ViewModels
 {
     public class DashboardViewModel
     {
@@ -6,7 +8,8 @@
         public int TotalProducts { get; set; }
         public int TotalSuppliers { get; set; }
         public int TotalCustomers { get; set; }
-        public int TotalRecords { get; set; }
-
+        public int ReorderCount { get; set; }
+        public List<LowStockProductVM> LowStockProducts { get; set; }
     }
+
 }
