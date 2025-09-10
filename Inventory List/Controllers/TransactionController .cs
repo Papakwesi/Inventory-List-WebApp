@@ -29,7 +29,7 @@ namespace Inventory_List.Controllers
                     Quantity = t.Quantity,
                     Date = t.Date,
                     Product = t.Product,
-                    User = t.User
+                    UserId = t.UserId
                 })
                 .ToList();
 
@@ -70,7 +70,9 @@ namespace Inventory_List.Controllers
                     Type = vm.Type,
                     ProductId = vm.ProductId,
                     Quantity = vm.Quantity,
-                    Date = DateTime.Now
+                    Date = DateTime.Now,
+                    UserId = vm.UserId
+
                     //UserId = _userManager.GetUserId(User)
                 };
 

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Inventory_List.Models
@@ -24,9 +25,10 @@ namespace Inventory_List.Models
         public DateTime Date { get; set; } = DateTime.Now;
 
         // Who processed it
-        public string UserId { get; set; }
+        [Required]
+        public string? UserId { get; set; }
 
-        [ForeignKey("UserId")]
-        public ApplicationUser User { get; set; }
+        //[ForeignKey("UserId")]
+        //public ApplicationUser User { get; set; }
     }
 }
