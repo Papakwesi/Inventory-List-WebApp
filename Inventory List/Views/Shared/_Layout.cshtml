@@ -1,9 +1,14 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@using Inventory_List.Models
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <title>@ViewData["Title"] - Inventory_List</title>
+    <title>@ViewData["Title"] - Inventory Management</title>
 
     <!-- SB Admin 2 Styles -->
     <link href="~/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css" />
@@ -77,22 +82,23 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" asp-controller="ReorderLevel" asp-action="Index">
-                    <i class="fas fa-bell"></i>
-                    <span>Reorder Levels</span>
+                    <i class="fas fa-bell"></i> <span>Reorder Levels</span>
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" asp-controller="Transaction" asp-action="Index">
-                    <i class="fas fa-exchange-alt"></i>
-                    <span>Transactions</span>
+                    <i class="fas fa-exchange-alt"></i> <span>Transactions</span>
                 </a>
             </li>
         </ul>
         <!-- End Sidebar -->
-
+        <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
             <div id="content">
+                <!-- Topbar -->
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 shadow-sm px-3">
+
+                    <!-- Brand (always left) -->
                     <a class="navbar-brand fw-bold d-flex align-items-center" href="/">
                         <i class="fas fa-cubes me-2 text-primary brand-icon"></i>
                         <span class="brand-text">
@@ -100,7 +106,50 @@
                             <span class="text-primary">Management</span>
                         </span>
                     </a>
+
+                    <!-- Spacer to push auth links -->
+                    <div class="flex-grow-1"></div>
+
+                    <!-- Authentication (far right) -->
+                    <div class="d-flex align-items-center">
+                        <ul class="navbar-nav d-flex align-items-center mb-0">
+                            @if (SignInManager.IsSignedIn(User))
+                            {
+                                <li class="nav-item me-3">
+                                    <span class="nav-link fw-semibold text-dark">
+                                        <i class="fas fa-user-circle me-1 text-primary"></i>
+                                        Hello, @UserManager.GetUserName(User)!
+                                    </span>
+                                </li>
+                                <li class="nav-item">
+                                    <form asp-area="Identity" asp-page="/Account/Logout" method="post" class="d-inline">
+                                        <button type="submit" class="btn btn-danger btn-sm rounded-pill shadow-sm px-3">
+                                            <i class="fas fa-sign-out-alt me-1"></i> Logout
+                                        </button>
+                                    </form>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="nav-item me-2">
+                                    <a class="btn btn-outline-primary btn-sm rounded-pill shadow-sm px-3"
+                                       asp-area="Identity" asp-page="/Account/Login">
+                                        <i class="fas fa-sign-in-alt me-1"></i> Login
+                                    </a>
+                                </li>
+                                <li class="nav-item ml-2">
+                                    <a class="btn btn-primary btn-sm rounded-pill shadow-sm px-3"
+                                       asp-area="Identity" asp-page="/Account/Register">
+                                        <i class="fas fa-user-plus me-1"></i> Register
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
                 </nav>
+
+
+                <!-- End Topbar -->
 
                 <div class="container-fluid">
                     @RenderBody()

@@ -5,10 +5,12 @@ namespace Inventory_List.Data
 {
     public class DbInitializer
     {
-        public static async Task SeedAsync(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
+        public static async Task SeedAsync(
+            UserManager<ApplicationUser> userManager,
+            RoleManager<IdentityRole> roleManager)
         {
             // 1. Define roles
-            string[] roleNames = { "Admin", "Cashier", "Manager" };
+            string[] roleNames = { "SuperAdmin", "Admin", "Employee" };
 
             foreach (var role in roleNames)
             {
@@ -18,24 +20,34 @@ namespace Inventory_List.Data
                 }
             }
 
-            // 2. Create default Admin user if not exists
-            var adminUser = await userManager.FindByEmailAsync("admin@inventory.com");
+            // 2. Create default SuperAdmin user if not exists
+            var superAdminEmail = "superadmin@inventory.com";
+            var defaultPassword = "Superadmin@123";
 
-            if (adminUser == null)
+            var superAdmin = await userManager.FindByEmailAsync(superAdminEmail);
+
+            if (superAdmin == null)
             {
-                adminUser = new ApplicationUser
+                superAdmin = new ApplicationUser
                 {
-                    UserName = "admin@inventory.com",
-                    Email = "admin@inventory.com",
-                    EmailConfirmed = true,
-                    RoleName = "Admin"
+                    UserName = superAdminEmail,
+                    Email = superAdminEmail,
+                    EmailConfirmed = true
                 };
 
-                var result = await userManager.CreateAsync(adminUser, "Admin@123");
+                var result = await userManager.CreateAsync(superAdmin, defaultPassword);
 
                 if (result.Succeeded)
                 {
-                    await userManager.AddToRoleAsync(adminUser, "Admin");
+                    await userManager.AddToRoleAsync(superAdmin, "SuperAdmin");
+                }
+            }
+            else
+            {
+                // Make sure user has the SuperAdmin role
+                if (!await userManager.IsInRoleAsync(superAdmin, "SuperAdmin"))
+                {
+                    await userManager.AddToRoleAsync(superAdmin, "SuperAdmin");
                 }
             }
         }
