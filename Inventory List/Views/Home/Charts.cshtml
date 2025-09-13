@@ -1,0 +1,129 @@
+﻿@using Newtonsoft.Json
+@model Inventory_List.ViewModels.DashboardViewModel
+@{
+    ViewData["Title"] = "Charts";
+}
+
+<div class="container-fluid">
+    <h1 class="h3 mb-4 fw-bold text-primary">
+        <i class="fas fa-chart-bar me-2"></i> Dashboard Analytics
+    </h1>
+
+    <div class="row">
+        <!-- Products by Category -->
+        <div class="col-lg-6 mb-4">
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-primary text-white d-flex align-items-center justify-content-between">
+                    <h6 class="m-0 fw-bold"><i class="fas fa-boxes me-2"></i> Products by Category</h6>
+                </div>
+                <div class="card-body">
+                    <canvas id="categoryChart" height="250"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Transactions Over Time -->
+        <div class="col-lg-6 mb-4">
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-success text-white d-flex align-items-center justify-content-between">
+                    <h6 class="m-0 fw-bold"><i class="fas fa-exchange-alt me-2"></i> Transactions Over Time</h6>
+                </div>
+                <div class="card-body">
+                    <canvas id="transactionChart" height="250"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .card {
+        border-radius: 1rem;
+    }
+
+    .card-header {
+        border-top-left-radius: 1rem !important;
+        border-top-right-radius: 1rem !important;
+    }
+
+    canvas {
+        max-height: 280px;
+    }
+</style>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Products by Category (Pie)
+        var ctx1 = document.getElementById('categoryChart').getContext('2d');
+        new Chart(ctx1, {
+            type: 'doughnut',
+            data: {
+                labels: @Html.Raw(JsonConvert.SerializeObject(Model.CategoryLabels)),
+                datasets: [{
+                    data: @Html.Raw(JsonConvert.SerializeObject(Model.CategoryCounts)),
+                    backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc', '#f6c23e', '#e74a3b'],
+                    borderColor: '#fff',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: { padding: 15, usePointStyle: true }
+                    },
+                    tooltip: {
+                        backgroundColor: '#2d3436',
+                        titleColor: '#fff',
+                        bodyColor: '#dfe6e9',
+                        cornerRadius: 8
+                    }
+                }
+            }
+        });
+
+        // Transactions Over Time (Line)
+        var ctx2 = document.getElementById('transactionChart').getContext('2d');
+        new Chart(ctx2, {
+            type: 'line',
+            data: {
+                labels: @Html.Raw(JsonConvert.SerializeObject(Model.TransactionDates)),
+                datasets: [{
+                    label: 'Transactions',
+                    data: @Html.Raw(JsonConvert.SerializeObject(Model.TransactionCounts)),
+                    borderColor: '#1cc88a',
+                    backgroundColor: 'rgba(28,200,138,0.1)',
+                    fill: true,
+                    tension: 0.3,
+                    pointBackgroundColor: '#1cc88a',
+                    pointBorderColor: '#fff',
+                    pointRadius: 5,
+                    pointHoverRadius: 8
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        backgroundColor: '#2d3436',
+                        titleColor: '#fff',
+                        bodyColor: '#dfe6e9',
+                        cornerRadius: 8
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: { display: false }
+                    },
+                    y: {
+                        ticks: { beginAtZero: true, stepSize: 1 },
+                        grid: { color: '#f0f0f0' }
+                    }
+                }
+            }
+        });
+    </script>
+}

@@ -1,6 +1,7 @@
 ﻿using Inventory_List.Data;
 using Inventory_List.Models;
 using Inventory_List.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -8,6 +9,7 @@ using System.Linq;
 
 namespace Inventory_List.Controllers
 {
+    [Authorize(Roles = "SuperAdmin,Admin")]
     public class ReorderLevelController : Controller
     {
         private readonly ApplicationDbContext _db;

@@ -60,39 +60,71 @@
 
             <hr class="sidebar-divider" />
 
+            <!-- Admin Menu -->
+            @if (SignInManager.IsSignedIn(User))
+            {
+                if (User.IsInRole("Admin"))
+                {
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#adminMenu" aria-expanded="false" aria-controls="adminMenu">
+                            <i class="fas fa-user-shield"></i>
+                            <span>Admin</span>
+                        </a>
+                        <div id="adminMenu" class="collapse" data-parent="#accordionSidebar">
+                            <div class="bg-white py-2 collapse-inner rounded">
+                                <a class="collapse-item" asp-controller="Category" asp-action="Index">
+                                    <i class="fas fa-tags me-2"></i> Categories
+                                </a>
+                                <a class="collapse-item" asp-controller="Product" asp-action="Index">
+                                    <i class="fas fa-cube me-2"></i> Products
+                                </a>
+                                <a class="collapse-item" asp-controller="Supplier" asp-action="Index">
+                                    <i class="fas fa-truck-loading me-2"></i> Suppliers
+                                </a>
+                                <a class="collapse-item" asp-controller="Customer" asp-action="Index">
+                                    <i class="fas fa-users me-2"></i> Customers
+                                </a>
+                                <a class="collapse-item" asp-controller="ReorderLevel" asp-action="Index">
+                                    <i class="fas fa-bell me-2"></i> Reorder Levels
+                                </a>
+                                <a class="collapse-item" asp-controller="Home" asp-action="Charts">
+                                    <i class="fas fa-chart-bar me-2"></i> Charts
+                                </a>
+                                <a class="collapse-item" asp-controller="Transaction" asp-action="Index">
+                                    <i class="fas fa-exchange-alt me-2"></i> Transactions
+                                </a>
+                            </div>
+                        </div>
+                    </li>
+                }
+
+                if (User.IsInRole("Employee"))
+                {
+                    <!-- Employee Menu -->
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#employeeMenu" aria-expanded="false" aria-controls="employeeMenu">
+                            <i class="fas fa-user"></i>
+                            <span>Employee</span>
+                        </a>
+                        <div id="employeeMenu" class="collapse" data-bs-parent="#accordionSidebar">
+                            <div class="bg-white py-2 collapse-inner rounded">
+                                <a class="collapse-item" asp-controller="Transaction" asp-action="Index">
+                                    <i class="fas fa-exchange-alt me-2"></i> Transactions
+                                </a>
+                            </div>
+                        </div>
+                    </li>
+                }
+            }
             <li class="nav-item">
-                <a class="nav-link" asp-controller="Category" asp-action="Index">
-                    <i class="fas fa-tags"></i> <span>Categories</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" asp-controller="Product" asp-action="Index">
-                    <i class="fas fa-cube"></i> <span>Products</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" asp-controller="Supplier" asp-action="Index">
-                    <i class="fas fa-truck-loading"></i> <span>Suppliers</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" asp-controller="Customer" asp-action="Index">
-                    <i class="fas fa-users"></i> <span>Customers</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" asp-controller="ReorderLevel" asp-action="Index">
-                    <i class="fas fa-bell"></i> <span>Reorder Levels</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" asp-controller="Transaction" asp-action="Index">
-                    <i class="fas fa-exchange-alt"></i> <span>Transactions</span>
+                <a class="nav-link d-flex align-items-center"
+                   asp-controller="Users"
+                   asp-action="Create">
+                    <i class="fas fa-user-plus me-2"></i> Create User
                 </a>
             </li>
         </ul>
         <!-- End Sidebar -->
-        <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
             <div id="content">
                 <!-- Topbar -->

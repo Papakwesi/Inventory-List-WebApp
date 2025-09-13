@@ -104,7 +104,7 @@
     </div>
 
     <!-- Quick Actions -->
-    <div class="row mt-3">
+    <div class="row mt-3 mb-4">
         <div class="col-md-12">
             <div class="card shadow-sm border-0 rounded-lg">
                 <div class="card-header bg-light fw-bold">
@@ -178,33 +178,6 @@
             </div>
         </div>
     </div>
-
-    <!-- Row: Charts -->
-    <div class="row">
-        <!-- Products by Category -->
-        <div class="col-lg-6 mb-4">
-            <div class="card shadow">
-                <div class="card-header bg-gradient-info text-white py-3">
-                    <h6 class="m-0 font-weight-bold"><i class="fas fa-chart-pie"></i> Products by Category</h6>
-                </div>
-                <div class="card-body">
-                    <canvas id="categoryChart"></canvas>
-                </div>
-            </div>
-        </div>
-
-        <!-- Transactions Over Time -->
-        <div class="col-lg-6 mb-4">
-            <div class="card shadow">
-                <div class="card-header bg-gradient-success text-white py-3">
-                    <h6 class="m-0 font-weight-bold"><i class="fas fa-chart-line"></i> Transactions Over Time</h6>
-                </div>
-                <div class="card-body">
-                    <canvas id="transactionChart"></canvas>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
 
 <style>
@@ -227,37 +200,3 @@
         transition: all 0.2s ease-in-out;
     }
 </style>
-
-@section Scripts {
-    <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-        // Sample Chart Data (replace with Model data)
-        var ctx1 = document.getElementById('categoryChart');
-        new Chart(ctx1, {
-            type: 'pie',
-            data: {
-                labels: @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.CategoryLabels)),
-                datasets: [{
-                    data: @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.CategoryCounts)),
-                    backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc', '#f6c23e', '#e74a3b']
-                }]
-            }
-        });
-
-        var ctx2 = document.getElementById('transactionChart');
-        new Chart(ctx2, {
-            type: 'line',
-            data: {
-                labels: @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.TransactionDates)),
-                datasets: [{
-                    label: 'Transactions',
-                    data: @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.TransactionCounts)),
-                    borderColor: '#1cc88a',
-                    fill: false,
-                    tension: 0.1
-                }]
-            }
-        });
-    </script>
-}

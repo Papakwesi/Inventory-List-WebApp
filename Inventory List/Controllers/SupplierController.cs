@@ -1,10 +1,12 @@
 ﻿using Inventory_List.Data;
 using Inventory_List.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Inventory_List.Controllers
 {
+    [Authorize(Roles = "SuperAdmin,Admin")]
     public class SupplierController : Controller
     {
         private readonly ApplicationDbContext _db;
