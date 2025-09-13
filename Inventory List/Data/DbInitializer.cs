@@ -21,8 +21,8 @@ namespace Inventory_List.Data
             }
 
             // 2. Create default SuperAdmin user if not exists
-            var superAdminEmail = "superadmin@inventory.com";
-            var defaultPassword = "Superadmin@123";
+            var superAdminEmail = "#";
+            var defaultPassword = "#";
 
             var superAdmin = await userManager.FindByEmailAsync(superAdminEmail);
 
