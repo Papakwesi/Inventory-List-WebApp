@@ -2,33 +2,80 @@
     ViewData["Title"] = "Create User";
 }
 
-<h2>Create User</h2>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8">
+            <div class="card shadow-lg border-0 rounded-3">
+                <!-- Header -->
+                <div class="card-header bg-gradient bg-primary text-white text-center py-4">
+                    <i class="bi bi-person-plus-fill fs-1 mb-2"></i>
+                    <h4 class="mb-0 fw-bold text-white">
+                        <i class="bi bi-person-plus-fill me-2"></i>
+                        <span class="text-uppercase">Create New User</span>
+                    </h4>
 
-<form method="post">
-    <div class="form-group mb-3">
-        <label>Email</label>
-        <input type="email" name="email" class="form-control" required />
+                    <p class="small text-white-50 mb-0">Fill in the details to add a new account</p>
+                </div>
+
+                <!-- Body -->
+                <div class="card-body p-4">
+                    <form method="post">
+                        <!-- Validation -->
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                        <!-- First Name -->
+                        <div class="form-floating mb-3">
+                            <input type="text" name="firstName" class="form-control" id="firstNameInput" placeholder="Enter first name" required />
+                            <label for="firstNameInput"><i class="bi bi-person-fill"></i> First Name</label>
+                        </div>
+
+                        <!-- Last Name -->
+                        <div class="form-floating mb-3">
+                            <input type="text" name="lastName" class="form-control" id="lastNameInput" placeholder="Enter last name" required />
+                            <label for="lastNameInput"><i class="bi bi-person-lines-fill"></i> Last Name</label>
+                        </div>
+
+                        <!-- Email -->
+                        <div class="form-floating mb-3">
+                            <input type="email" name="email" class="form-control shadow-sm" id="emailInput"
+                                   placeholder="Enter email" required />
+                            <label for="emailInput"><i class="bi bi-envelope-fill me-2"></i>Email</label>
+                        </div>
+
+                        <!-- Password -->
+                        <div class="form-floating mb-3">
+                            <input type="password" name="password" class="form-control shadow-sm" id="passwordInput"
+                                   placeholder="Enter password" required />
+                            <label for="passwordInput"><i class="bi bi-lock-fill me-2"></i>Password</label>
+                        </div>
+
+                        <!-- Role -->
+                        <div class="form-floating mb-3">
+                            <select name="role" class="form-select shadow-sm" id="roleSelect" required>
+                                <option value="" selected disabled>-- Select Role --</option>
+                                <option value="Employee">Employee</option>
+                                <option value="Admin">Admin</option>
+                            </select>
+                            <label for="roleSelect"><i class="bi bi-shield-lock-fill me-2"></i>Role</label>
+                        </div>
+
+                        <!-- Submit -->
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-success btn-lg shadow-sm">
+                                <i class="bi bi-person-check-fill me-1"></i> Create User
+                            </button>
+                        </div>
+                    </form>
+
+                    <!-- Success Message -->
+                    @if (TempData["success"] != null)
+                    {
+                        <div class="alert alert-success mt-4 text-center shadow-sm">
+                            <i class="bi bi-check-circle-fill me-1"></i> @TempData["success"]
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
     </div>
-
-    <div class="form-group mb-3">
-        <label>Password</label>
-        <input type="password" name="password" class="form-control" required />
-    </div>
-
-    <div class="form-group mb-3">
-        <label>Role</label>
-        <select name="role" class="form-control">
-            <option value="Employee">Employee</option>
-            <option value="Admin">Admin</option>
-        </select>
-    </div>
-
-    <button type="submit" class="btn btn-primary">Create User</button>
-</form>
-
-@if (TempData["success"] != null)
-{
-    <div class="alert alert-success mt-3">
-        @TempData["success"]
-    </div>
-}
+</div>
