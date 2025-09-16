@@ -37,25 +37,26 @@ namespace Inventory_List.Controllers
                 TotalProducts = _db.Products.Count(),
                 TotalSuppliers = _db.Suppliers.Count(),
                 TotalCustomers = _db.Customers.Count(),
-                ReorderCount = lowStock.Count, // ✅ count only products below reorder level
+                TotalTransactions = _db.Transactions.Count(),
+                ReorderCount = lowStock.Count,
                 LowStockProducts = lowStock,
 
-                CategoryLabels = _db.Categories.Select(c => c.Name).ToList(),
-                CategoryCounts = _db.Categories
-                                .Select(c => c.Name.Count())
-                                .ToList(),
+                //CategoryLabels = _db.Categories.Select(c => c.Name).ToList(),
+                //CategoryCounts = _db.Categories
+                //                .Select(c => c.Name.Count())
+                //                .ToList(),
 
-                TransactionDates = _db.Transactions
-                .GroupBy(t => t.Date.Date) // Group by Date only
-                .OrderBy(g => g.Key)
-                .Select(g => g.Key.ToString("yyyy-MM-dd"))
-                .ToList(),
+                //TransactionDates = _db.Transactions
+                //.GroupBy(t => t.Date.Date) // Group by Date only
+                //.OrderBy(g => g.Key)
+                //.Select(g => g.Key.ToString("yyyy-MM-dd"))
+                //.ToList(),
 
-                TransactionCounts = _db.Transactions
-                .GroupBy(t => t.Date.Date)
-                .OrderBy(g => g.Key)
-                .Select(g => g.Count())
-                .ToList(),
+                //TransactionCounts = _db.Transactions
+                //.GroupBy(t => t.Date.Date)
+                //.OrderBy(g => g.Key)
+                //.Select(g => g.Count())
+                //.ToList(),
             };
 
             return View(vm);
@@ -73,7 +74,7 @@ namespace Inventory_List.Controllers
 
                 CategoryLabels = _db.Categories.Select(c => c.Name).ToList(),
                 CategoryCounts = _db.Categories
-                                .Select(c => c.Name.Count())
+                                .Select(c => _db.Products.Count(p => p.CategoryId == c.Id))
                                 .ToList(),
 
                 TransactionDates = _db.Transactions

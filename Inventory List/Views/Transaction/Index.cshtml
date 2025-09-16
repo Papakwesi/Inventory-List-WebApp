@@ -15,7 +15,7 @@
 
 <div class="card shadow-sm rounded-3 border-0">
     <div class="card-body">
-        <table id="datatables" class="table table-hover align-middle">
+        <table id="datatable" class="table table-hover align-middle">
             <thead class="table-primary">
                 <tr>
                     <th>Product</th>
@@ -67,19 +67,5 @@
 </div>
 
 @section Scripts {
-    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            $('#datatables').DataTable({
-                "pageLength": 10,
-                "ordering": true,
-                "lengthChange": true,
-                "searching": true,
-                "language": {
-                    "search": "_INPUT_",
-                    "searchPlaceholder": "Search transactions..."
-                }
-            });
-        });
-    </script>
+    <script src="~/js/datatables.js"></script>
 }

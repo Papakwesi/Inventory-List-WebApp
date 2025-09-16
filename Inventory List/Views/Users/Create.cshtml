@@ -26,27 +26,27 @@
                         <!-- First Name -->
                         <div class="form-floating mb-3">
                             <input type="text" name="firstName" class="form-control" id="firstNameInput" placeholder="Enter first name" required />
-                            <label for="firstNameInput"><i class="bi bi-person-fill"></i> First Name</label>
+                            <label for="firstNameInput"><i class="bi bi-person-fill"></i></label>
                         </div>
 
                         <!-- Last Name -->
                         <div class="form-floating mb-3">
                             <input type="text" name="lastName" class="form-control" id="lastNameInput" placeholder="Enter last name" required />
-                            <label for="lastNameInput"><i class="bi bi-person-lines-fill"></i> Last Name</label>
+                            <label for="lastNameInput"><i class="bi bi-person-lines-fill"></i></label>
                         </div>
 
                         <!-- Email -->
                         <div class="form-floating mb-3">
                             <input type="email" name="email" class="form-control shadow-sm" id="emailInput"
                                    placeholder="Enter email" required />
-                            <label for="emailInput"><i class="bi bi-envelope-fill me-2"></i>Email</label>
+                            <label for="emailInput"><i class="bi bi-envelope-fill me-2"></i></label>
                         </div>
 
                         <!-- Password -->
                         <div class="form-floating mb-3">
                             <input type="password" name="password" class="form-control shadow-sm" id="passwordInput"
-                                   placeholder="Enter password" required />
-                            <label for="passwordInput"><i class="bi bi-lock-fill me-2"></i>Password</label>
+                                   placeholder="Enter default password" required />
+                            <label for="passwordInput"><i class="bi bi-lock-fill me-2"></i></label>
                         </div>
 
                         <!-- Role -->
@@ -60,10 +60,13 @@
                         </div>
 
                         <!-- Submit -->
-                        <div class="d-grid">
-                            <button type="submit" class="btn btn-success btn-lg shadow-sm">
-                                <i class="bi bi-person-check-fill me-1"></i> Create User
+                        <div class="d-flex justify-content-end mt-4">
+                            <button type="submit" class="btn btn-primary me-2 shadow-sm">
+                                <i class="fas fa-save"></i> Create User
                             </button>
+                            <a asp-action="Index" class="btn btn-outline-secondary shadow-sm ml-3">
+                                <i class="fas fa-arrow-left"></i> Back to List
+                            </a>
                         </div>
                     </form>
 

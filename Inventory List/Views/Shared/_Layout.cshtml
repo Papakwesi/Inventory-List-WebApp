@@ -45,6 +45,8 @@
             border-bottom: 1px solid rgba(21, 140, 186, 0.2);
         }
     </style>
+
+    @RenderSection("Styles", required: false)
 </head>
 <body id="page-top">
 
@@ -76,9 +78,6 @@
                                 <a class="collapse-item" asp-controller="Users" asp-action="Index">
                                     <i class="fas fa-users-cog me-2"></i> Manage Users
                                 </a>
-                                <a class="collapse-item" asp-controller="Users" asp-action="Create">
-                                    <i class="fas fa-user-plus me-2"></i> Create User
-                                </a>
                                 <div class="dropdown-divider"></div>
 
                                 <a class="collapse-item" asp-controller="Category" asp-action="Index">
@@ -96,11 +95,13 @@
                                 <a class="collapse-item" asp-controller="ReorderLevel" asp-action="Index">
                                     <i class="fas fa-bell me-2"></i> Reorder Levels
                                 </a>
-                                <a class="collapse-item" asp-controller="Home" asp-action="Charts">
-                                    <i class="fas fa-chart-bar me-2"></i> Charts
-                                </a>
                                 <a class="collapse-item" asp-controller="Transaction" asp-action="Index">
                                     <i class="fas fa-exchange-alt me-2"></i> Transactions
+                                </a>
+                                <div class="dropdown-divider"></div>
+
+                                <a class="collapse-item" asp-controller="Home" asp-action="Charts">
+                                    <i class="fas fa-chart-bar me-2"></i> Charts
                                 </a>
                             </div>
                         </div>
@@ -145,11 +146,13 @@
                                 <a class="collapse-item" asp-controller="ReorderLevel" asp-action="Index">
                                     <i class="fas fa-bell me-2"></i> Reorder Levels
                                 </a>
-                                <a class="collapse-item" asp-controller="Home" asp-action="Charts">
-                                    <i class="fas fa-chart-bar me-2"></i> Charts
-                                </a>
                                 <a class="collapse-item" asp-controller="Transaction" asp-action="Index">
                                     <i class="fas fa-exchange-alt me-2"></i> Transactions
+                                </a>
+                                <div class="dropdown-divider"></div>
+
+                                <a class="collapse-item" asp-controller="Home" asp-action="Charts">
+                                    <i class="fas fa-chart-bar me-2"></i> Charts
                                 </a>
                             </div>
                         </div>
