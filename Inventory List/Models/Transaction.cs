@@ -28,7 +28,7 @@ namespace Inventory_List.Models
         [Required]
         public string? UserId { get; set; }
 
-        //[ForeignKey("UserId")]
-        //public ApplicationUser User { get; set; }
+        [ForeignKey("UserId")]
+        public ApplicationUser User { get; set; }
     }
 }

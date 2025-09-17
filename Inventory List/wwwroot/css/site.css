@@ -1,57 +1,135 @@
-html {
-  font-size: 14px;
+.navbar-animation {
+    position: relative;
+    height: 60px; 
+    width: 80%;
+    overflow: hidden;
+    background: linear-gradient(90deg,#ffffff,#ffffff );
 }
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+.bubbles span {
+    position: absolute;
+    bottom: -20px;
+    width: 12px;
+    height: 12px;
+    background: #158cba;
+    border-radius: 50%;
+    opacity: 0.6;
+    animation: rise 6s infinite ease-in;
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+div.login-page .navbar {
+    background: linear-gradient(90deg, #ffffff, #f8f9fa);
+    animation: shine 6s linear infinite;
 }
 
-html {
-  position: relative;
-  min-height: 100%;
+@keyframes shine {
+    0% {
+        background-position: -200% 0;
+    }
+
+    100% {
+        background-position: 200% 0;
+    }
 }
 
-body {
-  margin-bottom: 60px;
+
+    /* Give each bubble different positions, delays & sizes */
+    .bubbles span:nth-child(1) {
+        left: 10%;
+        animation-delay: 0s;
+        width: 8px;
+        height: 8px;
+    }
+
+    .bubbles span:nth-child(2) {
+        left: 25%;
+        animation-delay: 1s;
+    }
+
+    .bubbles span:nth-child(3) {
+        left: 40%;
+        animation-delay: 2s;
+        width: 14px;
+        height: 14px;
+    }
+
+    .bubbles span:nth-child(4) {
+        left: 55%;
+        animation-delay: 3s;
+    }
+
+    .bubbles span:nth-child(5) {
+        left: 70%;
+        animation-delay: 4s;
+        width: 10px;
+        height: 10px;
+    }
+
+    .bubbles span:nth-child(6) {
+        left: 85%;
+        animation-delay: 5s;
+    }
+
+    .bubbles span:nth-child(7) {
+        left: 95%;
+        animation-delay: 1.5s;
+        width: 16px;
+        height: 16px;
+    }
+
+    .bubbles span:nth-child(8) {
+        left: 50%;
+        animation-delay: 2.5s;
+        width: 9px;
+        height: 9px;
+    }
+
+    .bubbles span:nth-child(9) {
+        left: 30%;
+        animation-delay: 3.5s;
+    }
+
+    .bubbles span:nth-child(10) {
+        left: 75%;
+        animation-delay: 0.5s;
+        width: 18px;
+        height: 18px;
+    }
+
+@keyframes rise {
+    0% {
+        transform: translateY(0) scale(1);
+        opacity: 0.8;
+    }
+
+    50% {
+        transform: translateY(-30px) scale(1.2);
+        opacity: 0.5;
+    }
+
+    100% {
+        transform: translateY(-80px) scale(1.5);
+        opacity: 0;
+    }
 }
 
-.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
-  color: var(--bs-secondary-color);
-  text-align: end;
+/* Medium screens (tablets) */
+@media (max-width: 992px) {
+    .navbar-animation {
+        width: 70%;
+    }
 }
 
-.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
-  text-align: start;
+/* Small screens (large phones) */
+@media (max-width: 768px) {
+    .navbar-animation {
+        width: 60%;
+    }
 }
 
-.brand-text {
-    font-size: 1.25rem;
-    font-weight: 700;
-    letter-spacing: 1px;
-    color: #ffffff;
-    text-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
+/* Extra small screens (phones) */
+@media (max-width: 576px) {
+    .navbar-animation {
+        width: 50%;
+    }
 }
-
-/* Brand Icon */
-.brand-icon {
-    font-size: 1.5rem;
-    color: #ffffff;
-    text-shadow: 0 0 8px rgba(21, 140, 186, 0.7);
-}
-
-.navbar-brand:hover .brand-icon {
-    transform: rotate(10deg) scale(1.1);
-    text-shadow: 0 0 12px rgba(21, 140, 186, 0.9);
-}
-
-/* Keep navbar in SB Admin 2 vibe */
-.topbar {
-    border-bottom: 1px solid rgba(21, 140, 186, 0.2);
-}
-

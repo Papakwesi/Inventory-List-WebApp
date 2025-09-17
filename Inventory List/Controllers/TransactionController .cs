@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace Inventory_List.Controllers
 {
@@ -24,15 +26,8 @@ namespace Inventory_List.Controllers
         public IActionResult Index()
         {
             var transactions = _db.Transactions
-                .Select(t => new Transaction
-                {
-                    Id = t.Id,
-                    Type = t.Type,
-                    Quantity = t.Quantity,
-                    Date = t.Date,
-                    Product = t.Product,
-                    UserId = t.UserId
-                })
+                .Include(t => t.User)      // Load the User navigation property
+                .Include(t => t.Product)   // Load Product if you need it in the view
                 .ToList();
 
             return View(transactions);
@@ -73,9 +68,7 @@ namespace Inventory_List.Controllers
                     ProductId = vm.ProductId,
                     Quantity = vm.Quantity,
                     Date = DateTime.Now,
-                    UserId = vm.UserId
-
-                    //UserId = _userManager.GetUserId(User)
+                    UserId = _userManager.GetUserId(User)
                 };
 
                 _db.Transactions.Add(transaction);
